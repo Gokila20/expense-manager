@@ -13,6 +13,8 @@ def main_menu():
     print("2. View All Expenses")
     print("3. Update Expense")
     print("4. Delete Expense")
+    print("5. Generate Reports (Excel)")
+    
     print("5. Exit")
 
     choice = input("Enter your choice: ")
