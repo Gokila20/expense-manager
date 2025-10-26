@@ -1,8 +1,16 @@
 from database import get_db_connection
+from datetime import datetime
+import pytz
 
 
-def add_expense(date, category, amount, description, payment_mode,
-                merchant_name, location, notes, created_by):
+def add_expense(category, amount, description, payment_mode, merchant_name,
+                location, notes, created_by):
+
+    #  Automatically set current date and time
+    ist = pytz.timezone("Asia/Kolkata")
+    date = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
+    print(f" Date automatically set to: {date}")
+
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -13,7 +21,7 @@ def add_expense(date, category, amount, description, payment_mode,
           location, notes, created_by))
     conn.commit()
     conn.close()
-    print("✅ Expense added successfully!")
+    print(" Expense added successfully!")
 
 
 def view_expenses():
@@ -32,7 +40,7 @@ def update_expense(expense_id, new_amount):
                    (new_amount, expense_id))
     conn.commit()
     conn.close()
-    print("✅ Expense updated successfully!")
+    print(" Expense updated successfully!")
 
 
 def delete_expense(expense_id):
@@ -41,4 +49,4 @@ def delete_expense(expense_id):
     cursor.execute("DELETE FROM expenses WHERE expense_id = ?", (expense_id, ))
     conn.commit()
     conn.close()
-    print("🗑️ Expense deleted successfully!")
+    print(" Expense deleted successfully!")

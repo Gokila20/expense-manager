@@ -1,7 +1,6 @@
 from database import create_table
 from crud_operations import add_expense, view_expenses, update_expense, delete_expense
-from reports import export_to_excel, export_to_pdf
-
+from reports import export_to_excel, export_to_pdf, show_expense_chart
 
 
 def main_menu():
@@ -14,13 +13,14 @@ def main_menu():
     print("3. Update Expense")
     print("4. Delete Expense")
     print("5. Generate Reports (Excel)")
-    
-    print("5. Exit")
+    print("6. Generate Repports (PDF)")
+    print("7. Show Expense Chart")
+    print("8. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
-      date = input("Enter date (YYYY-MM-DD): ")
+
       category = input("Enter category: ")
       amount = float(input("Enter amount: "))
       description = input("Enter description: ")
@@ -30,8 +30,8 @@ def main_menu():
       notes = input("Enter notes: ")
       created_by = input("Enter your name: ")
 
-      add_expense(date, category, amount, description, payment_mode,
-                  merchant_name, location, notes, created_by)
+      add_expense(category, amount, description, payment_mode, merchant_name,
+                  location, notes, created_by)
 
     elif choice == "2":
       rows = view_expenses()
@@ -51,7 +51,16 @@ def main_menu():
       delete_expense(expense_id)
 
     elif choice == "5":
-      print("Goodbye 👋")
+      export_to_excel()
+
+    elif choice == "6":
+      export_to_pdf()
+
+    elif choice == "7":
+      show_expense_chart()
+
+    elif choice == "8":
+      print("Goodbye..................")
       break
     else:
       print("Invalid choice! Try again.")
